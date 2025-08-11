@@ -15,5 +15,8 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Show current branch
+        run: git branch --show-current
+
       - name: Install dependencies
         run: npm ci
