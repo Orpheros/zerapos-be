@@ -1,1 +1,3 @@
-export class CreateMenuDto {}
+export class CreateMenuDto {
+  
+}

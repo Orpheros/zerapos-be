@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MenuModule } from './menu/menu.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ApiKeyGuard } from './auth/guard/api-key.guard';
 
 @Module({
   imports: [
@@ -27,6 +29,12 @@ import { MenuModule } from './menu/menu.module';
     MenuModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyGuard,
+    },
+  ],
 })
 export class AppModule {}

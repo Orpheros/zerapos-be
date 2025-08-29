@@ -7,9 +7,9 @@ import {
 } from 'class-validator';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
-export class Menu {
+export class MenuDto {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @IsString()
   @IsNotEmpty()
@@ -23,8 +23,8 @@ export class Menu {
   price: number;
 
   @IsDate()
-  created_at: Date;
+  created_at?: Date;
 
   @IsDate()
-  updated_at: Date;
+  updated_at?: Date;
 }

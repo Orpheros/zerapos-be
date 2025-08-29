@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { CreateMenuDto } from './dto/create-menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
+import { ApiKeyGuard } from 'src/auth/guard/api-key.guard';
+import { MenuDto } from './dto/menu.dto';
 
 @Controller('menu')
 export class MenuController {
@@ -20,28 +22,33 @@ export class MenuController {
     return await this.menuService.getAllMenu();
   }
 
-  @Post()
-  create(@Body() createMenuDto: CreateMenuDto) {
-    return this.menuService.create(createMenuDto);
+  @Post('createMenu')
+  async createMenu(@Body() dt: MenuDto) {
+    return await this.menuService.createMenu(dt);
   }
 
-  @Get()
-  findAll() {
-    return this.menuService.findAll();
+  @Patch('updateMenu/:id')
+  async updateMenu(@Param('id', ParseIntPipe) id: number, @Body() dt: MenuDto) {
+    return await this.menuService.updateMenu(id, dt);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.menuService.findOne(+id);
-  }
+  // @Get()
+  // findAll() {
+  //   return this.menuService.findAll();
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menuService.update(+id, updateMenuDto);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.menuService.findOne(+id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.menuService.remove(+id);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
+  //   return this.menuService.update(+id, updateMenuDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.menuService.remove(+id);
+  // }
 }
